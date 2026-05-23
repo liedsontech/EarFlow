@@ -1210,8 +1210,8 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         </div>
       </div>
 
-      {/* Teclado Virtual - com 100px padding lateral */}
-      <div className="mb-6" style={{ paddingLeft: '100px', paddingRight: '100px' }}>
+      {/* Teclado Virtual - padding lateral responsivo */}
+      <div className="mb-6 px-0 md:px-8 lg:px-24">
         <PianoKeyboard
           activeNotes={activeNotesArray}
           targetNote={null}
