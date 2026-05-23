@@ -15,9 +15,9 @@ const OPTIONS: { value: Instrument; label: string; icon: any; color: string; emo
 
 export function InstrumentSelector({ value, onChange }: Props) {
   return (
-    <div className="flex items-center gap-2 flex-wrap">
-      <span className="text-xs text-gray-500 mr-1">Som:</span>
-      <div className="inline-flex bg-gray-100 rounded-lg p-1 gap-1 flex-wrap">
+    <div className="flex flex-wrap items-center justify-center gap-2">
+      <span className="text-xs text-gray-500">Som:</span>
+      <div className="inline-flex bg-gray-100 rounded-lg p-1 gap-1 flex-wrap justify-center">
         {OPTIONS.map(opt => {
           const active = value === opt.value;
           return (

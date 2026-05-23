@@ -26,7 +26,7 @@ function App() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10 shadow-sm">
-        <div className="flex items-center justify-between max-w-6xl mx-auto gap-4 flex-wrap">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between max-w-6xl mx-auto gap-3 md:gap-4 items-center">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
               <Music className="w-6 h-6 text-white" />
@@ -37,7 +37,7 @@ function App() {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 flex-wrap">
+          <div className="flex items-center justify-center gap-3 md:gap-4 flex-wrap">
             <InstrumentSelector value={instrument} onChange={setInstrument} />
             <MidiConnection onConnectionChange={setIsMidiConnected} />
           </div>
