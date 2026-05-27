@@ -13,10 +13,8 @@ declare global {
   }
 }
 
-// 🔧 Substitua pelo seu Publisher ID do AdSense quando for aprovado
-// Enquanto for o valor placeholder ('ca-pub-XXXXXXXXXXXXXXXX'), nenhum espaço
-// publicitário será renderizado — a UI fica limpa.
-const ADSENSE_CLIENT = 'ca-pub-XXXXXXXXXXXXXXXX';
+// Google AdSense Publisher ID
+const ADSENSE_CLIENT = 'ca-pub-2893428733506731';
 
 export const isAdSenseConfigured = () => /^ca-pub-\d{10,}$/.test(ADSENSE_CLIENT);
 
