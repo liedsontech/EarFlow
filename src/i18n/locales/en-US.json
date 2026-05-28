@@ -1,0 +1,118 @@
+{
+  "header": {
+    "tagline": "Tune your ear, free your music"
+  },
+  "footer": {
+    "description": "EarFlow - Train your musical ear for free",
+    "midiInfo": "Chrome/Edge with MIDI keyboard",
+    "madeBy": "Made by"
+  },
+  "midi": {
+    "connected": "Connected",
+    "noMidi": "No MIDI",
+    "select": "Select...",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "refresh": "Refresh list",
+    "notSupported": "Web MIDI API not supported. Use Chrome or Edge."
+  },
+  "instrument": {
+    "label": "Sound:",
+    "piano": "Piano",
+    "bass": "Bass",
+    "guitar_acoustic": "Acoustic Guitar",
+    "guitar_electric": "Electric Guitar"
+  },
+  "exercises": {
+    "note": {
+      "label": "🎵 Notes",
+      "description": "Identify notes on the keyboard"
+    },
+    "interval": {
+      "label": "📏 Intervals",
+      "description": "Listen to two sounds and identify the interval"
+    },
+    "chord": {
+      "label": "🎹 Chords",
+      "description": "Identify Major, minor, Augmented, diminished"
+    },
+    "harmonic_field": {
+      "label": "🎼 Major Field",
+      "description": "What degree is the chord in the Major key?"
+    },
+    "harmonic_field_minor": {
+      "label": "🎻 Minor Field",
+      "description": "What degree is the chord in the minor key?"
+    },
+    "chord_replicate": {
+      "label": "🎶 Replicate Chord",
+      "description": "Listen to the chord and replicate on the keyboard"
+    },
+    "progression": {
+      "label": "🎵 Progressions",
+      "description": "Listen to 3-5 chords and identify the degree sequence"
+    }
+  },
+  "ui": {
+    "listen": "Listen",
+    "next": "Next",
+    "restart": "Restart",
+    "showAnswer": "👁️ Show Answer",
+    "tonic": "🎯 Tonic",
+    "blindMode": "Blind Mode",
+    "chooseAnswer": "Choose the answer:",
+    "accuracy": "Accuracy",
+    "streak": "Streak",
+    "correct": "Correct",
+    "level": "Level:",
+    "easy": "🟢 Easy",
+    "medium": "🟡 Medium",
+    "hard": "🔴 Hard",
+    "block": "🎹 Block",
+    "arpeggio": "🎸 Arpeggio",
+    "showChordInOptions": "Show chord with degree (e.g.: IV — F)",
+    "clickDegreesInOrder": "Click the degrees in the order you heard ({{answered}}/{{total}}):",
+    "replicateChord": "Replicate the chord on the keyboard",
+    "replicateChordOrChoose": "Replicate the chord on the keyboard or choose the degree",
+    "identifySequence": "🎧 Identify the sequence of {{count}} chords:",
+    "tonality": "Key:",
+    "major": "Major",
+    "minor": "minor",
+    "whichDegree": "🎧 What degree is this chord?",
+    "whichInterval": "🎧 What interval from this note?",
+    "whichChord": "🎧 What chord is this?",
+    "whichNote": "🎧 What note is this?",
+    "from": "From",
+    "to": "to",
+    "toUnknown": "to ?",
+    "identifyInterval": "Identify the interval between the two notes played",
+    "connectMidi": "🔌 Connect your MIDI keyboard or use the virtual keyboard below",
+    "noteTouched": "Note played",
+    "chordDetected": "Chord Detected",
+    "notesPressed": "Notes Pressed",
+    "touchKeyboard": "Play the keyboard...",
+    "touchNote": "Play a note",
+    "analyzing": "Analyzing...",
+    "threeOrMore": "3+ notes",
+    "correct_feedback": "✓ {{answer}} correct!",
+    "wrong_feedback": "✗ {{answer}} - try again!",
+    "wrong_note": "✗ You played {{note}}. Try again!",
+    "wrong_generic": "✗ Try again!",
+    "wrong_interval": "✗ Wrong interval. Try again!",
+    "wrong_progression": "✗ Some positions were wrong. Click the red slots to correct.",
+    "correct_progression": "✓ Correct progression: {{sequence}}",
+    "playNote": "Play the note",
+    "listenPlay": "Listen and play"
+  },
+  "progression": {
+    "yourAnswer": "Your sequence:",
+    "expected": "Expected:"
+  },
+  "piano": {
+    "notePlayed": "Note played",
+    "targetNote": "Target note",
+    "range_mobile": "C3 - B5 (3 octaves, 36 keys)",
+    "range_tablet": "C2 - B4 (3 octaves, 36 keys)",
+    "range_desktop": "C1 - C6 (5 octaves, 64 keys)"
+  }
+}

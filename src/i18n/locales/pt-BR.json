@@ -1,0 +1,118 @@
+{
+  "header": {
+    "tagline": "Afine seu ouvido, liberte sua música"
+  },
+  "footer": {
+    "description": "EarFlow - Treine seu ouvido musical grátis",
+    "midiInfo": "Chrome/Edge com teclado MIDI",
+    "madeBy": "Feito por"
+  },
+  "midi": {
+    "connected": "Conectado",
+    "noMidi": "Sem MIDI",
+    "select": "Selecione...",
+    "connect": "Conectar",
+    "disconnect": "Desconectar",
+    "refresh": "Atualizar lista",
+    "notSupported": "Web MIDI API não suportada. Use Chrome ou Edge."
+  },
+  "instrument": {
+    "label": "Som:",
+    "piano": "Piano",
+    "bass": "Baixo",
+    "guitar_acoustic": "Violão",
+    "guitar_electric": "Guitarra"
+  },
+  "exercises": {
+    "note": {
+      "label": "🎵 Notas",
+      "description": "Identifique notas no teclado"
+    },
+    "interval": {
+      "label": "📏 Intervalos",
+      "description": "Ouça dois sons e identifique o intervalo"
+    },
+    "chord": {
+      "label": "🎹 Acordes",
+      "description": "Identifique Maior, menor, Aumentado, diminuto"
+    },
+    "harmonic_field": {
+      "label": "🎼 Campo Maior",
+      "description": "Qual o grau do acorde na tonalidade Maior?"
+    },
+    "harmonic_field_minor": {
+      "label": "🎻 Campo menor",
+      "description": "Qual o grau do acorde na tonalidade menor?"
+    },
+    "chord_replicate": {
+      "label": "🎶 Replicar Acorde",
+      "description": "Ouça o acorde e replique no teclado"
+    },
+    "progression": {
+      "label": "🎵 Progressões",
+      "description": "Ouça 3-5 acordes e identifique a sequência de graus"
+    }
+  },
+  "ui": {
+    "listen": "Ouvir",
+    "next": "Próximo",
+    "restart": "Reiniciar",
+    "showAnswer": "👁️ Gabarito",
+    "tonic": "🎯 Tônica",
+    "blindMode": "Modo Cego",
+    "chooseAnswer": "Escolha a resposta:",
+    "accuracy": "Precisão",
+    "streak": "Sequência",
+    "correct": "Acertos",
+    "level": "Nível:",
+    "easy": "🟢 Fácil",
+    "medium": "🟡 Médio",
+    "hard": "🔴 Difícil",
+    "block": "🎹 Cheio",
+    "arpeggio": "🎸 Arpejo",
+    "showChordInOptions": "Mostrar acorde junto ao grau (ex: IV — F)",
+    "clickDegreesInOrder": "Clique nos graus na ordem que ouviu ({{answered}}/{{total}}):",
+    "replicateChord": "Replique o acorde no teclado",
+    "replicateChordOrChoose": "Replique o acorde no teclado ou escolha o grau",
+    "identifySequence": "🎧 Identifique a sequência de {{count}} acordes:",
+    "tonality": "Tonalidade:",
+    "major": "Maior",
+    "minor": "menor",
+    "whichDegree": "🎧 Qual o grau deste acorde?",
+    "whichInterval": "🎧 Qual o intervalo a partir desta nota?",
+    "whichChord": "🎧 Qual o acorde?",
+    "whichNote": "🎧 Qual a nota?",
+    "from": "Partindo de",
+    "to": "até",
+    "toUnknown": "até ?",
+    "identifyInterval": "Identifique o intervalo entre as duas notas tocadas",
+    "connectMidi": "🔌 Conecte seu teclado MIDI ou use o teclado virtual abaixo",
+    "noteTouched": "Nota tocada",
+    "chordDetected": "Acorde Detectado",
+    "notesPressed": "Notas Pressionadas",
+    "touchKeyboard": "Toque no teclado...",
+    "touchNote": "Toque uma nota",
+    "analyzing": "Analisando...",
+    "threeOrMore": "3+ notas",
+    "correct_feedback": "✓ {{answer}} correto!",
+    "wrong_feedback": "✗ {{answer}} - tente novamente!",
+    "wrong_note": "✗ Você tocou {{note}}. Tente novamente!",
+    "wrong_generic": "✗ Tente novamente!",
+    "wrong_interval": "✗ Intervalo errado. Tente novamente!",
+    "wrong_progression": "✗ Errou em algumas posições. Clique nos slots vermelhos para corrigir.",
+    "correct_progression": "✓ Progressão correta: {{sequence}}",
+    "playNote": "Toque a nota",
+    "listenPlay": "Escute e toque"
+  },
+  "progression": {
+    "yourAnswer": "Sua sequência:",
+    "expected": "Esperado:"
+  },
+  "piano": {
+    "notePlayed": "Nota tocada",
+    "targetNote": "Nota alvo",
+    "range_mobile": "C3 - B5 (3 oitavas, 36 teclas)",
+    "range_tablet": "C2 - B4 (3 oitavas, 36 teclas)",
+    "range_desktop": "C1 - C6 (5 oitavas, 64 teclas)"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "header": {
+    "tagline": "Afina tu oído, libera tu música"
+  },
+  "footer": {
+    "description": "EarFlow - Entrena tu oído musical gratis",
+    "midiInfo": "Chrome/Edge con teclado MIDI",
+    "madeBy": "Hecho por"
+  },
+  "midi": {
+    "connected": "Conectado",
+    "noMidi": "Sin MIDI",
+    "select": "Seleccionar...",
+    "connect": "Conectar",
+    "disconnect": "Desconectar",
+    "refresh": "Actualizar lista",
+    "notSupported": "Web MIDI API no soportada. Usa Chrome o Edge."
+  },
+  "instrument": {
+    "label": "Sonido:",
+    "piano": "Piano",
+    "bass": "Bajo",
+    "guitar_acoustic": "Guitarra Acústica",
+    "guitar_electric": "Guitarra Eléctrica"
+  },
+  "exercises": {
+    "note": {
+      "label": "🎵 Notas",
+      "description": "Identifica notas en el teclado"
+    },
+    "interval": {
+      "label": "📏 Intervalos",
+      "description": "Escucha dos sonidos e identifica el intervalo"
+    },
+    "chord": {
+      "label": "🎹 Acordes",
+      "description": "Identifica Mayor, menor, Aumentado, disminuido"
+    },
+    "harmonic_field": {
+      "label": "🎼 Campo Mayor",
+      "description": "¿Qué grado es el acorde en la tonalidad Mayor?"
+    },
+    "harmonic_field_minor": {
+      "label": "🎻 Campo menor",
+      "description": "¿Qué grado es el acorde en la tonalidad menor?"
+    },
+    "chord_replicate": {
+      "label": "🎶 Replicar Acorde",
+      "description": "Escucha el acorde y replícalo en el teclado"
+    },
+    "progression": {
+      "label": "🎵 Progresiones",
+      "description": "Escucha 3-5 acordes e identifica la secuencia de grados"
+    }
+  },
+  "ui": {
+    "listen": "Escuchar",
+    "next": "Siguiente",
+    "restart": "Reiniciar",
+    "showAnswer": "👁️ Respuesta",
+    "tonic": "🎯 Tónica",
+    "blindMode": "Modo Ciego",
+    "chooseAnswer": "Elige la respuesta:",
+    "accuracy": "Precisión",
+    "streak": "Racha",
+    "correct": "Correctas",
+    "level": "Nivel:",
+    "easy": "🟢 Fácil",
+    "medium": "🟡 Medio",
+    "hard": "🔴 Difícil",
+    "block": "🎹 Bloque",
+    "arpeggio": "🎸 Arpegio",
+    "showChordInOptions": "Mostrar acorde con el grado (ej: IV — F)",
+    "clickDegreesInOrder": "Haz clic en los grados en el orden que escuchaste ({{answered}}/{{total}}):",
+    "replicateChord": "Replica el acorde en el teclado",
+    "replicateChordOrChoose": "Replica el acorde en el teclado o elige el grado",
+    "identifySequence": "🎧 Identifica la secuencia de {{count}} acordes:",
+    "tonality": "Tonalidad:",
+    "major": "Mayor",
+    "minor": "menor",
+    "whichDegree": "🎧 ¿Qué grado es este acorde?",
+    "whichInterval": "🎧 ¿Qué intervalo desde esta nota?",
+    "whichChord": "🎧 ¿Qué acorde es este?",
+    "whichNote": "🎧 ¿Qué nota es esta?",
+    "from": "Desde",
+    "to": "hasta",
+    "toUnknown": "hasta ?",
+    "identifyInterval": "Identifica el intervalo entre las dos notas tocadas",
+    "connectMidi": "🔌 Conecta tu teclado MIDI o usa el teclado virtual abajo",
+    "noteTouched": "Nota tocada",
+    "chordDetected": "Acorde Detectado",
+    "notesPressed": "Notas Presionadas",
+    "touchKeyboard": "Toca el teclado...",
+    "touchNote": "Toca una nota",
+    "analyzing": "Analizando...",
+    "threeOrMore": "3+ notas",
+    "correct_feedback": "✓ {{answer}} ¡correcto!",
+    "wrong_feedback": "✗ {{answer}} - ¡inténtalo de nuevo!",
+    "wrong_note": "✗ Tocaste {{note}}. ¡Inténtalo de nuevo!",
+    "wrong_generic": "✗ ¡Inténtalo de nuevo!",
+    "wrong_interval": "✗ Intervalo incorrecto. ¡Inténtalo de nuevo!",
+    "wrong_progression": "✗ Algunas posiciones fueron incorrectas. Haz clic en los slots rojos para corregir.",
+    "correct_progression": "✓ Progresíon correcta: {{sequence}}",
+    "playNote": "Toca la nota",
+    "listenPlay": "Escucha y toca"
+  },
+  "progression": {
+    "yourAnswer": "Tu secuencia:",
+    "expected": "Esperado:"
+  },
+  "piano": {
+    "notePlayed": "Nota tocada",
+    "targetNote": "Nota objetivo",
+    "range_mobile": "C3 - B5 (3 octavas, 36 teclas)",
+    "range_tablet": "C2 - B4 (3 octavas, 36 teclas)",
+    "range_desktop": "C1 - C6 (5 octavas, 64 teclas)"
+  }
+}
