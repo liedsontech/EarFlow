@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plug, CheckCircle2, XCircle, RefreshCw, AlertTriangle } from 'lucide-react';
 import {
   isWebMidiSupported,
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export function MidiConnection({ onConnectionChange }: Props) {
+  const { t } = useTranslation();
   const [devices, setDevices] = useState<MidiDevice[]>([]);
   const [selectedId, setSelectedId] = useState<string>('');
   const [isConnected, setIsConnected] = useState(false);
@@ -23,7 +25,7 @@ export function MidiConnection({ onConnectionChange }: Props) {
 
   const refresh = useCallback(async () => {
     if (!isWebMidiSupported()) {
-      setSupportError('Web MIDI API não suportada. Use Chrome ou Edge.');
+      setSupportError(t('midi.notSupported'));
       return;
     }
     try {
@@ -89,13 +91,13 @@ export function MidiConnection({ onConnectionChange }: Props) {
       {isConnected ? (
         <div className="flex items-center gap-2 text-green-600">
           <CheckCircle2 className="w-5 h-5" />
-          <span className="text-sm font-medium">Conectado</span>
+          <span className="text-sm font-medium">{t('midi.connected')}</span>
           {lastNoteName && <span className="text-xs text-gray-500">{lastNoteName}</span>}
         </div>
       ) : (
         <div className="flex items-center gap-2 text-gray-500">
           <XCircle className="w-5 h-5" />
-          <span className="text-sm">Sem MIDI</span>
+          <span className="text-sm">{t('midi.noMidi')}</span>
         </div>
       )}
 
@@ -106,7 +108,7 @@ export function MidiConnection({ onConnectionChange }: Props) {
             onChange={(e) => setSelectedId(e.target.value)}
             className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 max-w-[220px]"
           >
-            <option value="">Selecione...</option>
+            <option value="">{t('midi.select')}</option>
             {devices.map(d => (
               <option key={d.id} value={d.id}>{d.name}</option>
             ))}
@@ -114,7 +116,7 @@ export function MidiConnection({ onConnectionChange }: Props) {
           <button
             onClick={refresh}
             className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg"
-            title="Atualizar lista"
+            title={t('midi.refresh')}
           >
             <RefreshCw className="w-4 h-4" />
           </button>
@@ -124,12 +126,12 @@ export function MidiConnection({ onConnectionChange }: Props) {
             className="btn-primary flex items-center gap-2 text-sm disabled:opacity-50"
           >
             <Plug className="w-4 h-4" />
-            {isLoading ? '...' : 'Conectar'}
+            {isLoading ? '...' : t('midi.connect')}
           </button>
         </div>
       ) : (
         <button onClick={handleDisconnect} className="btn-secondary text-sm">
-          Desconectar
+          {t('midi.disconnect')}
         </button>
       )}
     </div>

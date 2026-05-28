@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Piano, MidiNumbers } from 'react-piano';
 import 'react-piano/dist/styles.css';
 
@@ -80,6 +81,7 @@ export function PianoKeyboard({
     notesByOctave[oct].push(note);
   });
 
+  const { t } = useTranslation();
   return (
     <div className="piano-component w-full" ref={containerRef}>
       {/* Painel de Cifras - ALTURA FIXA */}
@@ -91,11 +93,11 @@ export function PianoKeyboard({
           {/* Notas sendo tocadas — oculto em mobile (ilegível em telas pequenas) */}
           <div className="hidden md:block flex-1 min-w-0">
             <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">
-              Notas Pressionadas ({activeNotes.length})
+              {t('ui.notesPressed')} ({activeNotes.length})
             </div>
             <div className="flex flex-wrap gap-1 overflow-hidden" style={{ maxHeight: '40px' }}>
               {activeNotes.length === 0 ? (
-                <span className="text-gray-500 italic text-sm">Toque no teclado...</span>
+                <span className="text-gray-500 italic text-sm">{t('ui.touchKeyboard')}</span>
               ) : (
                 Object.entries(notesByOctave).map(([oct, notes]) => (
                   <span key={oct} className="bg-gray-700 px-2 py-1 rounded text-xs whitespace-nowrap">
@@ -110,7 +112,7 @@ export function PianoKeyboard({
           {/* Desktop: Acorde Detectado */}
           <div className="hidden md:block text-right" style={{ minWidth: '180px' }}>
             <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">
-              Acorde Detectado
+              {t('ui.chordDetected')}
             </div>
             <div style={{ height: '40px' }} className="flex items-center justify-end">
               {chordName ? (
@@ -118,9 +120,9 @@ export function PianoKeyboard({
                   {chordName}
                 </span>
               ) : activeNotes.length >= 2 ? (
-                <span className="text-lg text-gray-500">Analisando...</span>
+                <span className="text-lg text-gray-500">{t('ui.analyzing')}</span>
               ) : (
-                <span className="text-gray-500 italic text-sm">3+ notas</span>
+                <span className="text-gray-500 italic text-sm">{t('ui.threeOrMore')}</span>
               )}
             </div>
           </div>
@@ -128,7 +130,7 @@ export function PianoKeyboard({
           {/* Mobile: Nota tocada (mais útil com poucas teclas visíveis) */}
           <div className="md:hidden text-right flex-1">
             <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">
-              Nota tocada
+              {t('ui.noteTouched')}
             </div>
             <div style={{ height: '40px' }} className="flex items-center justify-end">
               {activeNotes.length > 0 ? (
@@ -136,7 +138,7 @@ export function PianoKeyboard({
                   {NOTE_NAMES[activeNotes[activeNotes.length - 1] % 12]}{getOctave(activeNotes[activeNotes.length - 1])}
                 </span>
               ) : (
-                <span className="text-gray-500 italic text-sm">Toque uma nota</span>
+                <span className="text-gray-500 italic text-sm">{t('ui.touchNote')}</span>
               )}
             </div>
           </div>
@@ -186,12 +188,12 @@ export function PianoKeyboard({
         {/* Info de oitavas */}
         <div className="flex justify-center gap-4 mt-2 text-xs text-gray-500 px-4">
           <span>
-            📍 {range === RANGES.mobile && 'C3 - B5 (3 oitavas, 36 teclas)'}
-            {range === RANGES.tablet && 'C2 - B4 (3 oitavas, 36 teclas)'}
-            {range === RANGES.desktop && 'C1 - C6 (5 oitavas, 64 teclas)'}
+            📍 {range === RANGES.mobile && t('piano.range_mobile')}
+            {range === RANGES.tablet && t('piano.range_tablet')}
+            {range === RANGES.desktop && t('piano.range_desktop')}
           </span>
-          <span className="text-blue-600">● Nota tocada</span>
-          {showTarget && <span className="text-green-600">🎯 Nota alvo</span>}
+          <span className="text-blue-600">● {t('piano.notePlayed')}</span>
+          {showTarget && <span className="text-green-600">🎯 {t('piano.targetNote')}</span>}
         </div>
       </div>
     </div>

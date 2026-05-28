@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as Tone from 'tone';
 import { Play, RotateCcw, Trophy, Eye, EyeOff, Volume2 } from 'lucide-react';
 import type { Attempt, Instrument } from '../types';
@@ -47,16 +48,17 @@ function shuffleArray<T>(arr: T[]): T[] {
 }
 
 const EXERCISES: ExerciseConfig[] = [
-  { mode: 'note', label: '🎵 Notas', description: 'Identifique notas no teclado', difficulty: 'easy' },
-  { mode: 'interval', label: '📏 Intervalos', description: 'Ouça dois sons e identifique o intervalo', difficulty: 'medium' },
-  { mode: 'chord', label: '🎹 Acordes', description: 'Identifique Maior, menor, Aumentado, diminuto', difficulty: 'medium' },
-  { mode: 'harmonic-field', label: '🎼 Campo Maior', description: 'Qual o grau do acorde na tonalidade Maior?', difficulty: 'hard' },
-  { mode: 'harmonic-field-minor', label: '🎻 Campo menor', description: 'Qual o grau do acorde na tonalidade menor?', difficulty: 'hard' },
-  { mode: 'chord-replicate', label: '🎶 Replicar Acorde', description: 'Ouça o acorde e replique no teclado', difficulty: 'hard' },
-  { mode: 'progression', label: '🎵 Progressões', description: 'Ouça 3-5 acordes e identifique a sequência de graus', difficulty: 'hard' },
+  { mode: 'note', label: 'exercises.note.label', description: 'exercises.note.description', difficulty: 'easy' },
+  { mode: 'interval', label: 'exercises.interval.label', description: 'exercises.interval.description', difficulty: 'medium' },
+  { mode: 'chord', label: 'exercises.chord.label', description: 'exercises.chord.description', difficulty: 'medium' },
+  { mode: 'harmonic-field', label: 'exercises.harmonic_field.label', description: 'exercises.harmonic_field.description', difficulty: 'hard' },
+  { mode: 'harmonic-field-minor', label: 'exercises.harmonic_field_minor.label', description: 'exercises.harmonic_field_minor.description', difficulty: 'hard' },
+  { mode: 'chord-replicate', label: 'exercises.chord_replicate.label', description: 'exercises.chord_replicate.description', difficulty: 'hard' },
+  { mode: 'progression', label: 'exercises.progression.label', description: 'exercises.progression.description', difficulty: 'hard' },
 ];
 
 export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
+  const { t } = useTranslation();
   // Estado de exercício atual
   const [mode, setMode] = useState<ExerciseMode>('note');
   const [isBlindMode, setIsBlindMode] = useState(false);
@@ -340,9 +342,9 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         const noteOnly = notes[notes.length - 1];
         isCorrect = noteOnly % 12 === targetNote % 12;
         if (isCorrect) {
-          message = `✓ ${midiToNoteName(targetNote)} correto!`;
+          message = t('ui.correct_feedback', { answer: midiToNoteName(targetNote) });
         } else {
-          message = `✗ Você tocou ${midiToNoteName(noteOnly)}. Tente novamente!`;
+          message = t('ui.wrong_note', { note: midiToNoteName(noteOnly) });
         }
         break;
       }
@@ -358,11 +360,11 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         
         isCorrect = playedPCs.length === targetPCs.length && playedPCs.every((p, i) => p === targetPCs[i]);
         if (isCorrect) {
-          message = `✓ ${targetChord.symbol}${targetChord.degree ? ` (${targetChord.degree})` : ''} correto!`;
+          message = t('ui.correct_feedback', { answer: `${targetChord.symbol}${targetChord.degree ? ` (${targetChord.degree})` : ''}` });
         } else {
           // Se tem mais notas que o alvo, ainda é errado mas só conta após estabilizar
           if (playedPCs.length > targetPCs.length + 1) return; // Aguardar
-          message = `✗ Tente novamente!`;
+          message = t('ui.wrong_generic');
         }
         break;
       }
@@ -373,9 +375,9 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         const correctSemitones = targetInterval.to - targetInterval.from;
         isCorrect = semitones === correctSemitones;
         if (isCorrect) {
-          message = `✓ ${targetInterval.name} correto!`;
+          message = t('ui.correct_feedback', { answer: targetInterval.name });
         } else {
-          message = `✗ Intervalo errado. Tente novamente!`;
+          message = t('ui.wrong_interval');
         }
         break;
       }
@@ -553,12 +555,12 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
     const isCorrect = selectedAnswer === correctAnswer;
     if (isCorrect) {
       setFeedback('correct');
-      setFeedbackMessage(`✓ ${correctAnswer} correto!`);
+      setFeedbackMessage(t('ui.correct_feedback', { answer: correctAnswer }));
       setSessionAttempts(prev => prev + 1);
     } else {
       // RESILIENTE: flash vermelho mas volta para idle p/ tentar de novo
       setFeedback('wrong');
-      setFeedbackMessage(`✗ ${selectedAnswer} - tente novamente!`);
+      setFeedbackMessage(t('ui.wrong_feedback', { answer: selectedAnswer }));
       setStreak(0);
       scheduleAudio(() => {
         setFeedback('idle');
@@ -701,7 +703,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         return (
           <div className="text-center">
             <div className="text-sm text-gray-500 mb-2">
-              {isBlindMode ? '🎧 Escute e toque!' : 'Toque esta nota:'}
+              {isBlindMode ? `🎧 ${t('ui.listen')}!` : `${t('ui.playNote')}:`}
             </div>
             <div className={`text-7xl font-bold transition-colors duration-200 ${
               feedback === 'correct' ? 'text-green-500' :
@@ -724,16 +726,16 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         const revealed = feedback === 'correct' || showAnswer;
         return (
           <div className="text-center">
-            <div className="text-sm text-gray-500 mb-2">🎧 Qual o intervalo a partir desta nota?</div>
+            <div className="text-sm text-gray-500 mb-2">{t('ui.whichInterval')}</div>
             {/* Nota de referência - SEMPRE visível para o usuário achar no instrumento */}
             <div className="flex items-center justify-center gap-3 my-3">
               <div className="flex flex-col items-center">
-                <span className="text-xs text-gray-400 uppercase tracking-wider">Partindo de</span>
+                <span className="text-xs text-gray-400 uppercase tracking-wider">{t('ui.from')}</span>
                 <span className="text-4xl font-bold text-blue-600 font-mono">{fromName}</span>
               </div>
               <span className="text-2xl text-gray-400">→</span>
               <div className="flex flex-col items-center">
-                <span className="text-xs text-gray-400 uppercase tracking-wider">{revealed ? 'até' : 'até ?'}</span>
+                <span className="text-xs text-gray-400 uppercase tracking-wider">{revealed ? t('ui.to') : t('ui.toUnknown')}</span>
                 <span className={`text-4xl font-bold font-mono ${
                   revealed ? 'text-green-600' : 'text-gray-300'
                 }`}>
@@ -748,7 +750,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
               {revealed ? targetInterval.name : '?'}
             </div>
             <div className="text-xs text-gray-500 mt-2">
-              Identifique o intervalo entre as duas notas tocadas
+              {t('ui.identifyInterval')}
             </div>
           </div>
         );
@@ -757,14 +759,14 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
       case 'chord':
         return (
           <div className="text-center">
-            <div className="text-sm text-gray-500 mb-2">🎧 Qual o acorde?</div>
+            <div className="text-sm text-gray-500 mb-2">{t('ui.whichChord')}</div>
             <div className={`text-6xl font-bold ${
               feedback === 'correct' ? 'text-green-500' : 'text-primary-600'
             }`}>
               {feedback !== 'idle' ? targetChord.symbol : '?'}
             </div>
             <div className="text-sm text-gray-500 mt-2">
-              Replique o acorde no teclado
+              {t('ui.replicateChord')}
             </div>
           </div>
         );
@@ -776,16 +778,16 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         return (
           <div className="text-center">
             <div className="text-sm text-gray-500 mb-2">
-              Tonalidade: <span className="font-bold text-primary-600">{harmonicKey} {isMinor ? 'menor' : 'Maior'}</span>
+              {t('ui.tonality')} <span className="font-bold text-primary-600">{harmonicKey} {isMinor ? t('ui.minor') : t('ui.major')}</span>
             </div>
-            <div className="text-sm text-gray-500 mb-2">🎧 Qual o grau deste acorde?</div>
+            <div className="text-sm text-gray-500 mb-2">{t('ui.whichDegree')}</div>
             <div className={`text-5xl font-bold ${
               feedback === 'correct' ? 'text-green-500' : isMinor ? 'text-pink-600' : 'text-purple-600'
             }`}>
               {revealed ? `${targetChord.degree} (${targetChord.symbol})` : '???'}
             </div>
             <div className="text-sm text-gray-500 mt-2">
-              Replique o acorde no teclado ou escolha o grau
+              {t('ui.replicateChordOrChoose')}
             </div>
           </div>
         );
@@ -794,7 +796,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
       case 'chord-replicate':
         return (
           <div className="text-center">
-            <div className="text-sm text-gray-500 mb-2">🎧 Replique este acorde:</div>
+            <div className="text-sm text-gray-500 mb-2">{t('ui.replicateChord')}:</div>
             <div className={`text-6xl font-bold ${
               feedback === 'correct' ? 'text-green-500' : 'text-primary-600'
             }`}>
@@ -814,9 +816,9 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         return (
           <div className="text-center w-full">
             <div className="text-sm text-gray-500 mb-1">
-              Tonalidade: <span className="font-bold text-primary-600">{progression.key} Maior</span>
+              {t('ui.tonality')} <span className="font-bold text-primary-600">{progression.key} {t('ui.major')}</span>
             </div>
-            <div className="text-sm text-gray-500 mb-3">🎧 Identifique a sequência de {progression.chords.length} acordes:</div>
+            <div className="text-sm text-gray-500 mb-3">{t('ui.identifySequence', { count: progression.chords.length })}</div>
             <div className="flex justify-center gap-2 flex-wrap">
               {progression.chords.map((c, i) => {
                 const answered = progression.userAnswer[i];
@@ -888,7 +890,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         const allCorrect = newAnswers.every((ans, i) => ans === prev.chords[i].degree);
         if (allCorrect) {
           setFeedback('correct');
-          setFeedbackMessage(`✓ Progressão correta: ${prev.chords.map(c => c.degree).join(' - ')}`);
+          setFeedbackMessage(t('ui.correct_progression', { sequence: prev.chords.map(c => c.degree).join(' - ') }));
           setSessionAttempts(s => s + 1);
           setStreak(s => s + 1);
           setSessionCorrect(s => s + 1);
@@ -899,7 +901,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         } else {
           // RESILIENTE: marca erros mas não avança. Usuário pode corrigir.
           setFeedback('wrong');
-          setFeedbackMessage('✗ Errou em algumas posições. Clique nos slots vermelhos para corrigir.');
+          setFeedbackMessage(t('ui.wrong_progression'));
           setStreak(0);
         }
       }
@@ -934,20 +936,20 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
                   ? 'bg-primary-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
               }`}
-              title={ex.description}
+              title={t(ex.description)}
             >
-              {ex.label}
+              {t(ex.label)}
             </button>
           ))}
         </div>
         <p className="text-center text-xs text-gray-500 mt-2">
-          {EXERCISES.find(e => e.mode === mode)?.description}
+          {t(EXERCISES.find(e => e.mode === mode)?.description || '')}
         </p>
         
         {/* Seletor de Níveis - só para campo harmônico e progressões */}
         {(mode === 'harmonic-field' || mode === 'harmonic-field-minor' || mode === 'progression') && (
           <div className="flex justify-center mt-3 flex-wrap gap-2">
-            <span className="text-xs text-gray-500 self-center mr-1">Nível:</span>
+            <span className="text-xs text-gray-500 self-center mr-1">{t('ui.level')}</span>
             <div className="inline-flex bg-gray-100 rounded-lg p-1 gap-1">
               <button
                 onClick={() => { setDifficulty('easy'); generateNewExercise(); }}
@@ -958,7 +960,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
                 }`}
                 title="Apenas I, IV, V"
               >
-                🟢 Fácil
+                {t('ui.easy')}
               </button>
               <button
                 onClick={() => { setDifficulty('medium'); generateNewExercise(); }}
@@ -969,7 +971,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
                 }`}
                 title="I, ii, IV, V, vi"
               >
-                🟡 Médio
+                {t('ui.medium')}
               </button>
               <button
                 onClick={() => { setDifficulty('hard'); generateNewExercise(); }}
@@ -980,7 +982,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
                 }`}
                 title="Todos os 7 graus"
               >
-                🔴 Difícil
+                {t('ui.hard')}
               </button>
             </div>
           </div>
@@ -1008,7 +1010,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
-                🎹 Cheio
+                {t('ui.block')}
               </button>
               <button
                 onClick={async () => {
@@ -1028,7 +1030,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
-                🎵 Arpejo
+                {t('ui.arpeggio')}
               </button>
             </div>
           </div>
@@ -1039,15 +1041,15 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="card text-center py-3">
           <div className="text-2xl font-bold text-primary-600">{accuracy}%</div>
-          <div className="text-xs text-gray-500">Precisão</div>
+          <div className="text-xs text-gray-500">{t('ui.accuracy')}</div>
         </div>
         <div className="card text-center py-3">
           <div className="text-2xl font-bold text-primary-600">{streak}</div>
-          <div className="text-xs text-gray-500">Sequência</div>
+          <div className="text-xs text-gray-500">{t('ui.streak')}</div>
         </div>
         <div className="card text-center py-3">
           <div className="text-2xl font-bold text-primary-600">{sessionAttempts}</div>
-          <div className="text-xs text-gray-500">Tentativas</div>
+          <div className="text-xs text-gray-500">{t('ui.correct')}</div>
         </div>
       </div>
 
@@ -1063,7 +1065,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
               }`}
             >
               {isBlindMode ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
-              {isBlindMode ? 'Modo Blind' : 'Modo Normal'}
+              {isBlindMode ? t('ui.listenPlay') : t('ui.blindMode')}
             </button>
           </div>
         )}
@@ -1086,14 +1088,14 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
                     onChange={(e) => setShowChordInOptions(e.target.checked)}
                     className="rounded"
                   />
-                  Mostrar acorde junto ao grau (ex: IV — F)
+                  {t('ui.showChordInOptions')}
                 </label>
               </div>
             )}
             <div className="text-xs text-gray-500 text-center mb-2">
               {mode === 'progression' 
-                ? `Clique nos graus na ordem que ouviu (${progression.userAnswer.length}/${progression.chords.length}):`
-                : 'Escolha a resposta:'}
+                ? t('ui.clickDegreesInOrder', { answered: progression.userAnswer.length, total: progression.chords.length })
+                : t('ui.chooseAnswer')}
             </div>
             <div className={`flex flex-wrap gap-2 justify-center max-w-3xl mx-auto ${
               mode === 'progression' ? '' : ''
@@ -1140,7 +1142,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
           )}
           {showAnswer && feedback !== 'correct' && (
             <div className="text-blue-700 font-medium text-sm bg-blue-50 border border-blue-300 rounded-lg px-3 py-1 inline-block">
-              📖 Gabarito: {
+              📖 {t('ui.showAnswer')}: {
                 mode === 'note' ? midiToNoteName(targetNote)
                 : mode === 'interval' ? targetInterval.name
                 : mode === 'chord' ? targetChord.symbol
@@ -1163,7 +1165,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
         {/* Controles */}
         <div className="flex justify-center gap-3 mt-4 flex-wrap">
           <button onClick={replayExercise} className="btn-secondary flex items-center gap-2 text-sm">
-            <Volume2 className="w-4 h-4" /> Ouvir
+            <Volume2 className="w-4 h-4" /> {t('ui.listen')}
           </button>
           {(mode === 'harmonic-field' || mode === 'harmonic-field-minor' || mode === 'progression') && (
             <button
@@ -1181,7 +1183,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
               }}
               className="btn-secondary flex items-center gap-2 text-sm bg-yellow-50 border-yellow-300 text-yellow-700 hover:bg-yellow-100"
             >
-              🎯 Tônica
+              {t('ui.tonic')}
             </button>
           )}
           {/* Botão Mostrar Gabarito - revela a resposta correta */}
@@ -1190,11 +1192,11 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
               onClick={() => setShowAnswer(true)}
               className="btn-secondary flex items-center gap-2 text-sm bg-blue-50 border-blue-300 text-blue-700 hover:bg-blue-100"
             >
-              👁️ Gabarito
+              {t('ui.showAnswer')}
             </button>
           )}
           <button onClick={generateNewExercise} className="btn-secondary flex items-center gap-2 text-sm">
-            <Play className="w-4 h-4" /> Próximo
+            <Play className="w-4 h-4" /> {t('ui.next')}
           </button>
           <button
             onClick={() => {
@@ -1205,7 +1207,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
             }}
             className="btn-secondary flex items-center gap-2 text-sm"
           >
-            <RotateCcw className="w-4 h-4" /> Reiniciar
+            <RotateCcw className="w-4 h-4" /> {t('ui.restart')}
           </button>
         </div>
       </div>
@@ -1225,7 +1227,7 @@ export function NoteTrainer({ isMidiConnected }: NoteTrainerProps) {
       {/* Status conexão */}
       {!isMidiConnected && (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-center text-sm text-yellow-800">
-          🔌 Conecte seu teclado MIDI ou use o teclado virtual abaixo
+          {t('ui.connectMidi')}
         </div>
       )}
     </div>

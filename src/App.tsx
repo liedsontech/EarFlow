@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Music } from 'lucide-react';
 import { MidiConnection } from './components/MidiConnection';
 import { NoteTrainer } from './components/NoteTrainer';
 import { InstrumentSelector } from './components/InstrumentSelector';
+import { LanguageSelector } from './components/LanguageSelector';
 import { AdBanner, isAdSenseConfigured } from './components/AdBanner';
 import { setCurrentInstrument } from './utils/instrumentSampler';
 import { loadPreferences, savePreferences } from './utils/storage';
@@ -21,6 +23,7 @@ function App() {
   }, [instrument]);
 
   const adsEnabled = isAdSenseConfigured();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -33,13 +36,14 @@ function App() {
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">EarFlow</h1>
-              <p className="text-xs text-gray-500">Afine seu ouvido, liberte sua música</p>
+              <p className="text-xs text-gray-500">{t('header.tagline')}</p>
             </div>
           </div>
 
           <div className="flex items-center justify-center gap-3 md:gap-4 flex-wrap">
             <InstrumentSelector value={instrument} onChange={setInstrument} />
             <MidiConnection onConnectionChange={setIsMidiConnected} />
+            <LanguageSelector />
           </div>
         </div>
       </header>
@@ -84,12 +88,12 @@ function App() {
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 px-4 py-3 text-center text-xs text-gray-500">
         <div className="max-w-6xl mx-auto flex items-center justify-center gap-3 flex-wrap">
-          <span>🎹 EarFlow - Treine seu ouvido musical grátis</span>
+          <span>🎹 {t('footer.description')}</span>
           <span className="text-gray-300">|</span>
-          <span>Chrome/Edge com teclado MIDI</span>
+          <span>{t('footer.midiInfo')}</span>
           <span className="text-gray-300">|</span>
           <span>
-            Feito por <strong className="text-gray-700">Liedson Severiano</strong>{' '}
+            {t('footer.madeBy')} <strong className="text-gray-700">Liedson Severiano</strong>{' '}
             <a
               href="mailto:liedsonalves067@gmail.com"
               className="text-primary-600 hover:underline"
